@@ -2,6 +2,45 @@ let currentTaskId = null;
 let statusInterval = null;
 let searchResults = [];
 
+// Save mode to localStorage (global function)
+function saveMode(mode) {
+    localStorage.setItem('youtube-downloader-mode', mode);
+}
+
+// Set search mode (global function)
+function setSearchMode() {
+    const currentModeText = document.getElementById('currentModeText');
+    const searchSection = document.getElementById('searchSection');
+    const downloadSection = document.getElementById('downloadSection');
+    const searchResults = document.getElementById('searchResults');
+    
+    if (currentModeText) currentModeText.textContent = 'Current: Search Videos Mode';
+    
+    // Simple display switching
+    if (downloadSection) downloadSection.style.display = 'none';
+    if (searchSection) searchSection.style.display = 'block';
+    
+    if (typeof hideError === 'function') hideError();
+    if (typeof hideDownloadStatus === 'function') hideDownloadStatus();
+}
+
+// Set download mode (global function)
+function setDownloadMode() {
+    const currentModeText = document.getElementById('currentModeText');
+    const searchSection = document.getElementById('searchSection');
+    const downloadSection = document.getElementById('downloadSection');
+    const searchResults = document.getElementById('searchResults');
+    
+    if (currentModeText) currentModeText.textContent = 'Current: Direct URL Mode';
+    
+    // Simple display switching
+    if (searchSection) searchSection.style.display = 'none';
+    if (searchResults) searchResults.style.display = 'none';
+    if (downloadSection) downloadSection.style.display = 'block';
+    
+    if (typeof hideError === 'function') hideError();
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const downloadForm = document.getElementById('downloadForm');
     const previewBtn = document.getElementById('previewBtn');
@@ -34,35 +73,6 @@ document.addEventListener('DOMContentLoaded', function() {
             downloadModeBtn.checked = true;
             setDownloadMode();
         }
-    }
-
-    // Save mode to localStorage
-    function saveMode(mode) {
-        localStorage.setItem('youtube-downloader-mode', mode);
-    }
-
-    // Set search mode
-    function setSearchMode() {
-        document.getElementById('currentModeText').textContent = 'Current: Search Videos Mode';
-        
-        // Simple display switching
-        downloadSection.style.display = 'none';
-        searchSection.style.display = 'block';
-        
-        hideError();
-        hideDownloadStatus();
-    }
-
-    // Set download mode
-    function setDownloadMode() {
-        document.getElementById('currentModeText').textContent = 'Current: Direct URL Mode';
-        
-        // Simple display switching
-        searchSection.style.display = 'none';
-        searchResults.style.display = 'none';
-        downloadSection.style.display = 'block';
-        
-        hideError();
     }
 
     searchModeBtn.addEventListener('change', function() {
