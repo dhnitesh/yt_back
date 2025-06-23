@@ -44,27 +44,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set search mode
     function setSearchMode() {
         document.getElementById('currentModeText').textContent = 'Current: Search Videos Mode';
-        downloadSection.style.opacity = '0';
-        setTimeout(() => {
-            searchSection.style.display = 'block';
-            downloadSection.style.display = 'none';
-            searchSection.style.opacity = '1';
-            hideError();
-            hideDownloadStatus();
-        }, 150);
+        
+        // Simple display switching
+        downloadSection.style.display = 'none';
+        searchSection.style.display = 'block';
+        
+        hideError();
+        hideDownloadStatus();
     }
 
     // Set download mode
     function setDownloadMode() {
         document.getElementById('currentModeText').textContent = 'Current: Direct URL Mode';
-        searchSection.style.opacity = '0';
-        setTimeout(() => {
-            searchSection.style.display = 'none';
-            downloadSection.style.display = 'block';
-            downloadSection.style.opacity = '1';
-            searchResults.style.display = 'none';
-            hideError();
-        }, 150);
+        
+        // Simple display switching
+        searchSection.style.display = 'none';
+        searchResults.style.display = 'none';
+        downloadSection.style.display = 'block';
+        
+        hideError();
     }
 
     searchModeBtn.addEventListener('change', function() {
@@ -518,8 +516,8 @@ async function downloadFromSearch(videoUrl, index) {
             
             // Switch to download section to show progress
             document.getElementById('downloadMode').checked = true;
-            document.getElementById('searchSection').style.display = 'none';
-            document.getElementById('downloadSection').style.display = 'block';
+            saveMode('download');
+            setDownloadMode();
         } else {
             showError(data.detail || 'Error starting MP3 conversion');
         }

@@ -149,25 +149,6 @@ body {
 /* Main Card */
 .main-card {
     margin-bottom: 2rem;
-    position: relative;
-}
-
-.main-card::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: var(--primary-gradient);
-    border-radius: calc(var(--border-radius) + 2px);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-}
-
-.main-card.active::before {
-    opacity: 0.1;
 }
 
 .glass-card {
@@ -561,10 +542,6 @@ body {
     box-shadow: var(--shadow-medium);
 }
 
-.btn-check:checked + .btn-mode-toggle .mode-icon {
-    animation: pulse 1.5s infinite;
-}
-
 .mode-icon {
     font-size: 24px;
     margin-bottom: 4px;
@@ -638,14 +615,6 @@ body {
 /* Section Containers */
 .section-container {
     margin-top: 2rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease-in-out;
-}
-
-.section-container.active {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 .section-card {
@@ -996,7 +965,6 @@ body {
     font-size: 12px;
     font-weight: 600;
     display: inline-block;
-    animation: fadeIn 0.3s ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -1087,15 +1055,25 @@ body {
     }
 }
 
-/* Section Transitions */
-#searchSection, #downloadSection {
-    transition: opacity 0.3s ease-in-out;
-}
-
+/* Section Display - Simple without transitions */
 #searchSection {
-    opacity: 0;
+    display: none;
 }
 
 #downloadSection {
-    opacity: 1;
+    display: block;
+}
+
+/* Ensure download section is always visible when active */
+#downloadSection.active {
+    display: block !important;
+}
+
+#searchSection.active {
+    display: block !important;
+}
+
+/* Force visibility for debugging */
+.download-form {
+    min-height: 200px;
 }
